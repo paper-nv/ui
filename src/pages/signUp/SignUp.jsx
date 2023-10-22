@@ -1,5 +1,4 @@
 import "./SignUp.css";
-import LogoDark from "../../assets/logo/logoDark";
 // import Google from "../../assets/icons/Google";
 import "animate.css";
 import { toast } from "react-hot-toast";
@@ -19,12 +18,11 @@ import {
   EyeOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
-import DefaultModal from "../../components/modals/default";
-import Success from "../../assets/icons/success";
 
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [authModal, setAuthModal] = useState(false);
+  console.log(authModal);
 
   const schema = yup.object().shape({
     fullname: yup

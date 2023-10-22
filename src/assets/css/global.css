@@ -1,0 +1,380 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: 400;
+
+    color-scheme: light;
+    --background: #EDF1F5;
+    --text-primary: #2F80ED;
+    --text-secondary: #11253E;
+    --border: #E8F1F7;
+    --text-light: #617691;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+.bg-darken {
+    background-color: #11253E;
+}
+
+
+a {
+    font-weight: 500;
+    color: #2F80ED;
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: #2F80ED;
+}
+
+.prehead {
+    width: 100%;
+    padding: 100px;
+    /* background: #2F80ED; */
+    position: absolute;
+    z-index: -1;
+}
+
+body {
+    box-sizing: border-box;
+    color: #11253E;
+    background: rgb(244, 244, 247);
+    /* create gradient background */
+    /* background: #ffffff; */
+    /* background: #EDF1F5; */
+    font-family: 'Lato ', sans-serif;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+.app-container {
+    padding: 0 25px;
+}
+
+.content-container {
+    margin: 0 0 0 100px;
+}
+
+
+
+.btn:focus,
+.btn:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.btn:hover {
+    background-color: #11253E !important;
+    color: #fff;
+}
+
+svg,
+a,
+p h3 {
+    transition: fill 0.2s ease-in-out;
+}
+
+.breadcrumb {
+    margin: 0 200px !important;
+}
+
+.breadcrumbs li {
+    font-size: 14px;
+    color: #617691;
+    font-weight: bold;
+}
+
+.breadcrumbs li::after {
+    content: '•';
+    margin: 0 10px;
+    color: #617691;
+
+}
+
+.breadcrumbs li:last-child::after,
+.breadcrumbs li:first-child::after {
+    content: none !important;
+}
+
+.breadcrumbs li:last-child {
+    color: #11253E;
+}
+
+
+.box .box__header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.box {
+    background-color: #fff;
+    padding: 30px 25px;
+    border-radius: 15px;
+    /* border: 1px solid #9eaac0; */
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border: 1px solid #d9e2ee;
+    box-shadow: -9px 10px 0px 0px #d9e2ee;
+}
+
+.btn {
+    border-color: #d9d9d9;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+    font-size: 14px;
+    /* height: 32px; */
+    padding: 8px 15px;
+    border-radius: 6px;
+    outline: none;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    user-select: none;
+    touch-action: manipulation;
+    line-height: 1.5714285714285714;
+}
+
+.btn svg {
+    margin: 0 5px;
+}
+
+.btn svg .btn.btn__empty {
+    border: 1px solid #d3e5f1;
+    transition-property: background-color;
+    transition-duration: 2s;
+    transition-timing-function: linear;
+    transition-delay: .5s;
+    transition: ease-in;
+}
+
+@keyframes animateColor {
+    from {
+        background-color: transparent;
+        color: #11253E
+    }
+
+    to {
+        background-color: #2F80ED;
+        color: #fff;
+    }
+}
+
+
+
+
+.btn.btn__empty:hover,
+.btn.primary {
+    animation-name: animateColor;
+    animation-duration: 0.3s;
+    background-color: #2F80ED;
+    color: #fff;
+    border: 1px solid #d3e5f1;
+}
+
+
+.btn:focus,
+.btn:focus-visible {
+    outline: none;
+}
+
+
+.btn.block {
+    width: 100%;
+}
+
+.btn.icon {
+    margin-top: 1.5px;
+}
+
+.form-group label.checkbox {
+    margin-top: 2px !important;
+}
+
+.lead h3 {
+    font-size: 23px !important;
+    font-weight: 700;
+    font-family: Lato;
+    line-height: 29px;
+}
+
+.lead p {
+    font-size: 16px !important;
+}
+
+h5 {
+    color: #11253E;
+}
+
+.breakr span:nth-child(odd) {
+    width: 45%;
+    display: block;
+    border-top: 1px solid #E8F1F7;
+    margin-top: 12px;
+}
+
+.ant-btn-primary {
+    background-color: #1677ff;
+}
+
+.breakr span:nth-child(2)::after {
+    content: 'or';
+    width: 20px !important;
+    color: #617691;
+}
+
+.muted {
+    color: #8b9db3;
+}
+
+.form-group {
+    padding: 10px 0;
+}
+
+.form-group label {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    padding-bottom: 10px;
+}
+
+.form-group .error-message {
+    font-size: 12px;
+    color: rgb(220, 68, 41);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    outline: none !important;
+    font-size: 16px;
+    border: 1px solid #d3e5f1;
+    padding: 8px 15px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    margin-top: 5px;
+}
+
+
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover,
+.ibordr:hover {
+    border: 1px solid #1677ff;
+}
+
+.ibordr input {
+    border: none;
+}
+
+.ibordr input:hover {
+    border: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    /* color: #617691; */
+    color: rgba(0, 0, 0, 0.25);
+    ;
+}
+
+.ant-select-selector {
+    padding: 18.5px 11px !important;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.ibordr {
+    border: 1px solid #d3e5f1;
+
+}
+
+.ant-select .ant-select-arrow {
+    top: 62% !important
+}
+
+.ant-input-affix-wrapper>input.ant-input {
+    margin-top: 0;
+}
+
+.ant-input-affix-wrapper>input.ant-input:hover {
+    border: none !important;
+}
+
+.ant-input-affix-wrapper {
+    padding: 8px 11px;
+    margin-top: 5px;
+    border: 1px solid #d3e5f1;
+
+}
+
+.ibordr {
+    border-radius: 8px;
+    height: 40px;
+    margin-top: 5px;
+    padding: 2.6px 0 0 0;
+}
+
+.ibordr input {
+    padding: 0 !important;
+}
+
+
+@media screen and (min-width:1024px) {
+
+    .app-container {
+        padding: 0 90px;
+    }
+
+
+}
+
+@media screen and (min-width:1400px) {
+
+    .app-container {
+        padding: 0 200px;
+    }
+
+
+}
+
+
+.main__container {
+    padding: 0 20px;
+}
+
+@media screen and (max-width:800px) {
+    .content-container {
+        margin: 0 0 0 0;
+    }
+
+}

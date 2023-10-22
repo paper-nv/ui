@@ -1,0 +1,10 @@
+.bgImg {
+    background-size: auto;
+    background-repeat: no-repeat !important;
+    background-position: bottom !important;
+    background: url('../../src/assets/img/bg.svg');
+}
+
+.pritxt {
+    color: #1677FF
+}

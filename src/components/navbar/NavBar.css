@@ -1,0 +1,18 @@
+.navbar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    /* MAKE NAVBAR STICKY  */
+    position: sticky;
+
+}
+
+.navbar.stick {
+    position: fixed;
+
+}
+
+@media screen and (max-width:500px) {
+    .navbar {
+        width: 100vw;
+        z-index: 7;
+    }
+}

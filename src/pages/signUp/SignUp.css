@@ -1,0 +1,28 @@
+.authContainer {
+    margin: auto;
+    padding: 100px 25px;
+}
+
+
+@media screen and (max-width:500px) {
+    /* .box.auth__card {
+        border-radius: 0px;
+        height: 102vh;
+        width: 100vw;
+        left: 0;
+        bottom: 0;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        -ms-border-radius: 0px;
+        -o-border-radius: 0px;
+    } */
+}
+
+.bgImg {
+    background-size: auto;
+    background-repeat: no-repeat !important;
+    background-position: bottom !important;
+    background: url('../../../src/assets/img/bg.svg');
+}

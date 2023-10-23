@@ -1,5 +1,5 @@
-import SignUp from "../pages/signUp/SignUp.jsx";
 import SignIn from "../pages/signIn/SignIn";
+import SignUp from "../pages/signUp/SignUp";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Invoices from "../pages/invoices/Invoices";
 import Profiles from "../pages/profiles/profiles";

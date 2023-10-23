@@ -7,7 +7,7 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Skeleton, Avatar, List, Pagination, Button, Empty } from "antd";
-import "./profiles.css";
+import "./Profiles.css";
 import { useEffect, useState } from "react";
 import appServices from "../../services/app/appServices";
 import ProfileModal from "../../components/modals/ProfileModal";

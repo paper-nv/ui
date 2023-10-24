@@ -4,7 +4,6 @@ import { UserContext } from "../../context/userContext";
 import useHandleSession from "../../handler/sessionHandler";
 import {
   ArrowDownOutlined,
-  ArrowRightOutlined,
   ArrowUpOutlined,
   FileTextOutlined,
   PlusOutlined,
@@ -99,7 +98,7 @@ const Dashboard = () => {
                   to="../accounts/invoices"
                   className="text-sm text-slate-500 tracking-[2px] font-normal"
                 >
-                  Invoices <ArrowRightOutlined />
+                  Invoices
                 </Link>
               </div>
               <div>
@@ -119,7 +118,7 @@ const Dashboard = () => {
                   to="../accounts/invoices"
                   className="text-sm text-slate-500 font-normal tracking-[2px]"
                 >
-                  Paid <ArrowRightOutlined />
+                  Paid
                 </Link>
               </div>
               <div>
@@ -139,7 +138,7 @@ const Dashboard = () => {
                   to="../accounts/invoices"
                   className="text-sm text-slate-500 font-normal tracking-[2px]"
                 >
-                  Pending <ArrowRightOutlined />
+                  Pending
                 </Link>
               </div>
               <div>

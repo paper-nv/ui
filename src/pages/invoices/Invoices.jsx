@@ -18,8 +18,10 @@ import { useState, useEffect } from "react";
 import appServices from "../../services/app/appServices";
 import { Link } from "react-router-dom";
 import UpdateInvoice from "./update";
+import useHandleSession from "../../handler/sessionHandler";
 
 const Invoices = () => {
+  useHandleSession(location.pathname);
   const { MF, DF } = converter;
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState([]);

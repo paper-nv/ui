@@ -234,11 +234,11 @@ const UpdateInvoice = ({ close, data, setState }) => {
                     </div>
                   </div>
                   <div className="invoice__paper__body mt-20">
-                    <div className="grid grid-cols-10 invoice__list lead bg-gray-100 text-gray-600">
-                      <div className="col-span-6">
+                    <div className="grid grid-cols-10 p-3 invoice__list lead bg-gray-100 text-gray-600">
+                      <div className="col-span-5">
                         <p>Description</p>
                       </div>
-                      <div className="col-span-1 flex justify-center">
+                      <div className="col-span-2 flex justify-center">
                         <p>Price</p>
                       </div>
                       <div className="col-span-1 flex justify-center">
@@ -252,12 +252,12 @@ const UpdateInvoice = ({ close, data, setState }) => {
                       return (
                         <div
                           key={invoice.items.indexOf(item) + "ruo"}
-                          className="grid grid-cols-10 invoice__list bg-gray-100 text-gray-600 text-sm"
+                          className="grid grid-cols-10 invoice__list p-3 bg-gray-100 text-gray-600 text-sm"
                         >
-                          <div className="col-span-6">
+                          <div className="col-span-5">
                             <p>{item[0].children}</p>
                           </div>
-                          <div className="col-span-1 flex justify-center">
+                          <div className="col-span-2 flex justify-center">
                             <p>{item[1].children.split("x")[0]}</p>
                           </div>
                           <div className="col-span-1 flex justify-center">
@@ -269,11 +269,11 @@ const UpdateInvoice = ({ close, data, setState }) => {
                         </div>
                       );
                     })}
-                    <div className="grid grid-cols-10 invoice__list lead bg-gray-600 text-white rounded">
-                      <div className="col-span-4">
+                    <div className="grid grid-cols-10 invoice__list lead p-3 bg-gray-600 text-white rounded">
+                      <div className="col-span-5">
                         <p>Total Due:</p>
                       </div>
-                      <div className="col-span-6 flex justify-end">
+                      <div className="col-span-5 flex justify-end">
                         <p>{MF(invoice.total, invoice.currency)}</p>
                       </div>
                     </div>

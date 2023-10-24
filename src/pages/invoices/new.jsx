@@ -25,8 +25,10 @@ import { DatePicker, Empty } from "antd";
 import PreviewModal from "../../components/modals/previewModal";
 import converter from "../../utils/converter";
 import { useNavigate } from "react-router-dom";
+import useHandleSession from "../../handler/sessionHandler";
 
 const Newinvoice = () => {
+  useHandleSession(location.pathname);
   const { MF } = converter;
   const { RangePicker } = DatePicker;
   const [openModal, setOpenModal] = useState(false);

@@ -57,7 +57,7 @@ const SignIn = () => {
           localStorage.setItem("token", response?.data?.token);
           location?.state
             ? navigate(location?.state?.ref)
-            : navigate("./accounts/dashboard");
+            : navigate("../accounts/dashboard");
         } else {
           toast.error("something went wrong. Please wait awhile and try again");
         }
@@ -67,17 +67,12 @@ const SignIn = () => {
 
   return (
     <>
-      <div className="lg:grid grid-cols-3 bg-slate-100 justify-center  animate__animated animate__slideInUp">
-        <PaperLogo
-          className="text-blue-600 opacity-30 lg:ml-[450px] absolute"
-          height={500}
-        />
-
+      <div className="lg:grid  grid-cols-3 bg-slate-100 justify-center  ">
         <div className="col-span-1"></div>
-        <div className="col-span-1 py-32 px-10">
+        <div className="col-span-1 py-32 px-5 xl:px-10 3xl:px-24">
           <form
             onSubmit={handleSubmit((payload) => mutate(payload))}
-            className=""
+            className="animate__animated animate__slideInUp"
           >
             <Card className="bg-white rounded-2xl text-slate-700 ">
               <div className="">

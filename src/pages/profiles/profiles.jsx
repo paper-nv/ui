@@ -1,6 +1,7 @@
 import { Tabs } from "antd";
 import Billing from "./billing";
 import Customer from "./Customers";
+import useHandleSession from "../../handler/sessionHandler";
 
 const items = [
   {
@@ -16,6 +17,7 @@ const items = [
 ];
 
 const Profiles = () => {
+  useHandleSession(location.pathname);
   return (
     <div>
       <div className="">

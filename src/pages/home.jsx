@@ -45,10 +45,10 @@ const Home = () => {
 
       <div className="hero pt-20 ">
         <div className=" text-center app-container">
-          <h1 className="lg:text-5xl text-3xl  font-semibold animate__animated animate__slideInUp">
+          <h1 className="lg:text-6xl text-3xl  font-semibold animate__animated animate__slideInUp">
             Seamless Invoicing
           </h1>
-          <p className=" font-normal animate__animated animate__slideInUp lg:text-base text-sm text-slate-600 mt-5">
+          <p className=" font-normal animate__animated animate__slideInUp lg:text-lg text-sm text-slate-600 mt-5">
             Say goodbye to manual invoicing. Streamline your invoicing process
             <br />
             Keep track of status and insights
@@ -70,8 +70,8 @@ const Home = () => {
             <img
               src={
                 window.innerWidth > 600
-                  ? "../src/assets/img/sshot.png"
-                  : "../src/assets/img/sshot2.png"
+                  ? "https://res.cloudinary.com/hnrchris/image/upload/v1698164934/assets/sshot_nrcgnb.png"
+                  : "https://res.cloudinary.com/hnrchris/image/upload/v1698164943/assets/sshot2_l8kzch.png"
               }
               className="rounded-3xl   lg:w-[900px] lg:h-[auto] h-[440px] mt-20 animate__animated animate__slideInUp"
             />

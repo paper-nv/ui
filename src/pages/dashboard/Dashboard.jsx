@@ -29,7 +29,6 @@ const Dashboard = () => {
 
   const asyncFetch = () => {
     appServices.invoiceStats().then((res) => {
-      console.log(res);
       setStat(res.data);
       let invoices = [];
       res.data.invoices.forEach((item) => {
@@ -52,7 +51,6 @@ const Dashboard = () => {
           });
         }
       });
-      console.log(invoices);
       setData(invoices);
     });
 

@@ -4,8 +4,9 @@ const SelectUi = (props) => {
   const onChange = (value) => {
     props?.action(props.name, value);
   };
+
   const onSearch = (value) => {
-    console.log("search:", value);
+    return;
   };
 
   // Filter `option.label` match the user type `input`

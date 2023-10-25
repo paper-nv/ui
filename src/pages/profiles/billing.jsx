@@ -26,7 +26,6 @@ const Billing = () => {
   const { DF } = converter;
 
   const append = (data) => {
-    console.log(data);
     setList([
       {
         ...data,
@@ -48,7 +47,6 @@ const Billing = () => {
   useEffect(() => {
     isLoading
       ? appServices.companyList(options || "page=1&limit=10").then((res) => {
-          console.log(res.data.data);
           setList(res.data.data.docs);
           setPages(res.data.data.totalDocs);
           setIsLoading(false);
@@ -62,7 +60,6 @@ const Billing = () => {
     setIsLoading(true);
   };
 
-  console.log(list);
 
   return (
     <>

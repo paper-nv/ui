@@ -36,7 +36,6 @@ const Invoices = () => {
   useEffect(() => {
     isLoading
       ? appServices.invoiceList(options || "page=1&limit=10&").then((res) => {
-          console.log(res.data);
           setList(res.data.invoices);
           setPages(Number(res.data.totalPages * res.data.limit));
           setIsLoading(false);
@@ -52,13 +51,11 @@ const Invoices = () => {
 
   const filterList = (e) => {
     //uncheck other checkboxes
-    console.log(e.target);
     setOptions(`page=1&limit=10&filter=${filter}`);
     setChecked(e.target.value);
     appServices
       .invoiceList(`page=1&limit=10&filter=${e.target.value}`)
       .then((res) => {
-        console.log(res.data);
         setList(res.data.invoices);
         setPages(Number(res.data.totalPages * res.data.limit));
       });
@@ -92,7 +89,6 @@ const Invoices = () => {
     },
   ];
 
-  console.log(checked);
 
   return (
     <div>

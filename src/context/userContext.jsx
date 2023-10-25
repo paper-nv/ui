@@ -11,13 +11,13 @@ const UserProvider = ({ children }) => {
     retry: 0,
     refetchOnWindowFocus: false,
     onError: (error) => {
-      console.log("context error", error);
+      // console.log("context error", error);
     },
     onSuccess: (response) => {
       if (response.status === 200) {
         setUserDetails(response?.data);
       } else {
-        console.log("Error occurred");
+        // console.log("Error occurred");
       }
     },
   });

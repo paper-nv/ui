@@ -62,14 +62,12 @@ const EntryModal = (props) => {
         children: total,
       },
     ];
-    console.log(errors);
     return props.add(entry);
   };
 
   const getTotal = (e) => {
     const regExDecimalOrNumberOnly = /^[+-]?\d*\.{0,1}\d+$/;
     if (!regExDecimalOrNumberOnly.test(e.target.value)) return;
-    console.log(getValues());
     setTotal(getValues().unitPrice * getValues().units);
   };
 

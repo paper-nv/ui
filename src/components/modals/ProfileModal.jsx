@@ -52,7 +52,6 @@ const ProfileModal = (props) => {
   );
 
   const handleClick = () => {
-    console.log(getValues());
     setConfirmLoading(true);
     mutate(getValues());
   };

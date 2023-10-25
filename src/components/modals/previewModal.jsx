@@ -24,7 +24,6 @@ const PreviewModal = ({ data, close, id }) => {
       });
   };
 
-  //   console.log(JSON.parse(data));
   return (
     <Modal
       title="Invoice Preview"

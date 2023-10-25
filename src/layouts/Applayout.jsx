@@ -76,10 +76,7 @@ const AppLayout = ({ children }) => {
   } = theme.useToken();
 
   const handleExit = () => {
-    console.log("cricked");
     accountServices.logout().then((res) => {
-      console.log("res");
-
       if (res.status != 200)
         return toast.error("something went wrong please try agai");
 

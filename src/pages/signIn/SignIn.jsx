@@ -20,7 +20,6 @@ import { Card } from "antd";
 const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -50,7 +49,6 @@ const SignIn = () => {
     (payload) => authServices.signin(payload),
     {
       onError: (error) => {
-        console.log(error);
         toast.error(error.response.data.message);
       },
       onSuccess: (response) => {

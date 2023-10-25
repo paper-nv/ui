@@ -2,24 +2,27 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
 import { useMutation } from "@tanstack/react-query";
-// import { useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import authServices from "../../services/auth/authServices";
-import PaperLogo from "../../assets/logo/Paper";
+import PaperIcon from "../../assets/logo/paperIcon.Jsx";
 import {
   EyeInvisibleOutlined,
   EyeOutlined,
+  GoogleCircleFilled,
   LoadingOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import * as yup from "yup";
 import { toast } from "react-hot-toast";
-import { Card } from "antd";
+import { Button, Card } from "antd";
+import Google from "../../assets/icons/Google";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [gLoading, setgLoading] = useState(false);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -64,19 +67,40 @@ const SignIn = () => {
     }
   );
 
+  const mutation = useMutation((payload) => authServices.google(payload), {
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
+    onSuccess: ({ status, data }) => {
+      console.log(data);
+      if (status === 200) {
+        localStorage.setItem("token", data?.token);
+        location?.state
+          ? navigate(location?.state?.ref)
+          : navigate("../accounts/dashboard");
+      } else {
+        toast.error("something went wrong. Please wait awhile and try again");
+      }
+    },
+  });
+
+  const handleAuthWithGoogle = useGoogleLogin({
+    onSuccess: (response) => mutation.mutate(response),
+  });
+
   return (
     <>
-      <div className="lg:grid  grid-cols-3 bg-slate-100 justify-center  ">
+      <div className="lg:grid  grid-cols-3  justify-center  ">
         <div className="col-span-1"></div>
         <div className="col-span-1 py-32  xl:px-10 3xl:px-24">
           <form
             onSubmit={handleSubmit((payload) => mutate(payload))}
-            className="animate__animated animate__slideInUp"
+            className="animate__animated animate__slideInUp p-4"
           >
-            <Card className="bg-white auth__card rounded-2xl text-slate-700 ">
+            <Card className="bg-white p-4 auth__card rounded-2xl text-slate-700 ">
               <div className="">
-                <Link to="../" className="flex ">
-                  <PaperLogo className="text-blue-600" height="60" />
+                <Link to="../" className="flex items-center gap-2">
+                  <PaperIcon className="text-blue-600" height="40" />
                 </Link>
                 <h3 className="text-2xl font-semibold text-slate-700 mt-5">
                   Log In
@@ -85,6 +109,16 @@ const SignIn = () => {
                   Enter your credentials to access your account
                 </p>
               </div>
+
+              <Button
+                onClick={() => handleAuthWithGoogle()}
+                className="w-full h-10 flex items-center justify-center"
+                icon={<Google height={14} />}
+              >
+                Continue with Google
+              </Button>
+
+              <p className="py-6 text-slate-400 text-center font-thin">OR</p>
 
               <div className="form-group">
                 <label className="">Email address</label>
@@ -118,16 +152,24 @@ const SignIn = () => {
                 {<h2 className="error-message">{errors?.password?.message}</h2>}
               </div>
 
-              <div className="mt-5">
+              <div className="mt-5 flex justify-end">
                 {isLoading ? (
-                  <button type="button" className="btn primary block py-4">
+                  <Button
+                    type="primary"
+                    htmlType="button"
+                    className="primary w-full h-10 "
+                  >
                     {" "}
                     <LoadingOutlined />{" "}
-                  </button>
+                  </Button>
                 ) : (
-                  <button type="submit" className="btn primary block py-4">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="w-full h-10"
+                  >
                     Sign in
-                  </button>
+                  </Button>
                 )}
               </div>
               <p className="mt-[20px]">

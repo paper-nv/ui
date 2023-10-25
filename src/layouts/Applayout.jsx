@@ -14,9 +14,9 @@ import { Layout, Menu, theme, Tooltip } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 const { Header, Content, Sider } = Layout;
 import { useState } from "react";
-import PaperLogo from "../assets/logo/Paper";
 import accountServices from "../services/account/accountServices";
 import toast from "react-hot-toast";
+import PaperIcon from "../assets/logo/paperIcon";
 
 const AppLayout = ({ children }) => {
   const navigate = useNavigate();
@@ -78,10 +78,9 @@ const AppLayout = ({ children }) => {
   const handleExit = () => {
     accountServices.logout().then((res) => {
       if (res.status != 200)
-        return toast.error("something went wrong please try agai");
-
-      return navigate("../sign-in");
+        return toast.error("something went wrong please try again");
     });
+    return navigate("../sign-in");
   };
   return (
     <UserProvider>
@@ -93,7 +92,7 @@ const AppLayout = ({ children }) => {
           <div className="app-container w-[100%] flex items-center justify-between">
             <div className="demo-logo">
               {" "}
-              <PaperLogo height={30} className="text-slate-800 text-2xl" />
+              <PaperIcon height={30} className="text-blue-600 text-2xl" />
             </div>
 
             <Menu theme="light" mode="horizontal">
@@ -128,7 +127,7 @@ const AppLayout = ({ children }) => {
             >
               <div className="flex flex-col h-full justify-between">
                 <div className="lg:flex justify-center hidden mb-14">
-                  <PaperLogo className="text-blue-500" height={30} />
+                  <PaperIcon className="text-blue-500" height={30} />
                 </div>
                 <Menu
                   theme="light"

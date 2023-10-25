@@ -75,7 +75,7 @@ const Dashboard = () => {
         </div>
 
         <div>
-          <Link to="../accounts/invoices">
+          <Link to="../accounts/invoices/new">
             <Button
               icon={<PlusOutlined />}
               type="primary"
@@ -87,67 +87,70 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="">
-        <div className="md:grid gap-4 grid-cols-3">
-          <Card className="bg-white mb-4 col-span-1" bordered={false}>
+        <div className="grid card gap-4 gap-y-6  grid-cols-3 bg-white p-8 rounded-lg">
+          <div className="bg-white col-span-4  md:col-span-1">
             <div className="flex justify-between items-center">
-              <div>
-                <h3 className="font-semibold text-2xl  text-slate-600">
-                  {stat.totalInvoices}{" "}
-                </h3>
-                <Link
-                  to="../accounts/invoices"
-                  className="text-sm text-slate-500 tracking-[2px] font-normal"
-                >
-                  Invoices
-                </Link>
-              </div>
-              <div>
-                <div className="rounded-full p-4 flex justify-center items-center bg-blue-50">
+              <div className="flex gap-2 ">
+                <div className="rounded-full p-4 flex justify-center items-start bg-blue-50">
                   <FileTextOutlined className="text-blue-300 text-2xl" />
                 </div>
+                <div>
+                  <span
+                    to="../accounts/invoices"
+                    className="text-xs text-slate-500  "
+                  >
+                    Invoices
+                  </span>
+                  <h3 className="font-bold text-2xl leading-none  text-slate-600">
+                    {stat.totalInvoices}{" "}
+                  </h3>
+                </div>
               </div>
+              <div></div>
             </div>
-          </Card>
-          <Card className="bg-white mb-4 col-span-1" bordered={false}>
-            <div className="flex justify-between">
-              <div>
-                <h3 className="font-semibold text-2xl text-slate-600">
-                  {stat.totalPaidInvoices}
-                </h3>
-                <Link
-                  to="../accounts/invoices"
-                  className="text-sm text-slate-500 font-normal tracking-[2px]"
-                >
-                  Paid
-                </Link>
-              </div>
-              <div>
+          </div>
+          <div className="bg-white col-span-4  md:col-span-1">
+            <div className="flex justify-between items-center">
+              <div className="flex gap-2 ">
                 <div className="rounded-full p-4 flex justify-center items-center bg-green-50">
                   <ArrowUpOutlined className="text-green-400 text-2xl" />
                 </div>
+                <div>
+                  <span
+                    to="../accounts/invoices"
+                    className="text-xs text-slate-500  "
+                  >
+                    Paid
+                  </span>
+                  <h3 className="font-bold text-2xl leading-none  text-slate-600">
+                    {stat.totalPaidInvoices}
+                  </h3>
+                </div>
               </div>
+              <div></div>
             </div>
-          </Card>
-          <Card className="bg-white mb-4 col-span-1" bordered={false}>
+          </div>
+          <div className="bg-white col-span-4  md:col-span-1">
             <div className="flex justify-between items-center">
-              <div>
-                <h3 className="font-semibold text-2xl  text-slate-600">
-                  {stat.totalOutstandingInvoices}
-                </h3>
-                <Link
-                  to="../accounts/invoices"
-                  className="text-sm text-slate-500 font-normal tracking-[2px]"
-                >
-                  Pending
-                </Link>
-              </div>
-              <div>
+              <div className="flex gap-2 ">
                 <div className="rounded-full p-4 flex justify-center items-center bg-red-50">
                   <ArrowDownOutlined className="text-red-300 text-2xl" />
                 </div>
+                <div>
+                  <span
+                    to="../accounts/invoices"
+                    className="text-xs text-slate-500  "
+                  >
+                    Pending
+                  </span>
+                  <h3 className="font-bold text-2xl leading-none  text-slate-600">
+                    {stat.totalOutstandingInvoices}
+                  </h3>
+                </div>
               </div>
+              <div></div>
             </div>
-          </Card>
+          </div>
         </div>
         <div className="col-span-3 mt-10 ">
           {isLoading ? (

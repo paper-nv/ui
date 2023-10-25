@@ -1,12 +1,6 @@
 const Google = (props) => {
   return (
-    <svg
-      width="18"
-      height="17"
-      viewBox="0 0 18 17"
-      fill="none"
-      className={props}
-    >
+    <svg {...props} viewBox="0 0 18 17" fill="none">
       <mask
         id="mask0_12_1080"
         style={{ maskType: "luminance" }}

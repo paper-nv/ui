@@ -1,6 +1,6 @@
 import { HeartFilled } from "@ant-design/icons";
 import { Button } from "antd";
-import PaperLogo from "../assets/logo/Paper";
+import PaperIcon from "../assets/logo/paperIcon.Jsx";
 import {
   FundTwoTone,
   ToolTwoTone,
@@ -23,8 +23,8 @@ const Home = () => {
       >
         <div className="app-container">
           <div className="flex justify-between items-center  py-5">
-            <div className="navbar__logo">
-              <PaperLogo className="text-blue-600" height="60" />
+            <div className="navbar__logo flex gap-2 items-baseline">
+              <PaperIcon className="text-blue-600" height="35" />
             </div>
 
             <div className="flex gap-4">

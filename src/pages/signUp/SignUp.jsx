@@ -8,8 +8,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { Card } from "antd";
+import { Card, Modal, Result, Button } from "antd";
 import PaperLogo from "../../assets/logo/Paper";
+import Success from "../../assets/icons/success";
 // import { useGoogleLogin } from "@react-oauth/google";
 
 import authServices from "../../services/auth/authServices";
@@ -17,12 +18,12 @@ import {
   EyeInvisibleOutlined,
   EyeOutlined,
   LoadingOutlined,
+  SmileTwoTone,
 } from "@ant-design/icons";
 
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [authModal, setAuthModal] = useState(false);
-  console.log(authModal);
 
   const schema = yup.object().shape({
     fullname: yup
@@ -89,14 +90,36 @@ const SignUp = () => {
   // );
   return (
     <div>
+      <Modal
+        open={authModal}
+        footer={null}
+        header={null}
+        closable={false}
+        // onOk={handleOk}
+        // onCancel={handleCancel}
+      >
+        <Result
+          icon={
+            <div className="flex justify-center ">
+              <Success height={200} />
+            </div>
+          }
+          title="Your're set and ready for action!!"
+          extra={
+            <Link to="../accounts/dashboard">
+              <Button type="primary">Let's Proceed</Button>
+            </Link>
+          }
+        />
+      </Modal>
       <div className="lg:grid grid-cols-3 bg-slate-100 justify-center  animate__animated animate__slideInUp">
         <div className="col-span-1"></div>
-        <div className="col-span-1 py-32 px-10">
+        <div className="col-span-1 py-32  xl:px-10 3xl:px-24">
           <form
             onSubmit={handleSubmit((payload) => mutate(payload))}
             className=""
           >
-            <Card className="bg-white text-slate-700 rounded-2xl ">
+            <Card className="bg-white auth__card text-slate-700 rounded-2xl ">
               <div className="">
                 <Link to={"../"} className="flex ">
                   <PaperLogo className="text-blue-600" height="60" />
@@ -157,7 +180,7 @@ const SignUp = () => {
                   </button>
                 ) : (
                   <button type="submit" className="btn primary block py-4">
-                    Sign in
+                    Sign up
                   </button>
                 )}
               </div>

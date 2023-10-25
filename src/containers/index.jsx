@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "../pages/home";
 import { ConfigProvider } from "antd";
 import appTheme from "../theme/appTheme";
-import Error from "../pages/error";
+import Error404 from "../pages/error/404";
 
 function Containers() {
   const queryClient = new QueryClient();
@@ -27,7 +27,7 @@ function Containers() {
                   element={<AppLayout>{element}</AppLayout>}
                 />
               ))}
-              <Route path="*" element={<Error />} />
+              <Route path="*" element={<Error404 />} />
             </Routes>
           </QueryClientProvider>
         </ConfigProvider>

@@ -1,7 +1,7 @@
 import { Button, Result } from "antd";
 import PaperLogo from "../../assets/logo/Paper";
 
-const Error = () => {
+const Error404 = () => {
   return (
     <div className="">
       <div className="p-10 flex gap-4  justify-center top-0 z-0 absolute w-[100%]">
@@ -9,9 +9,9 @@ const Error = () => {
       </div>
       <div className="text-center mt-[10vh] flex justify-center align-middle">
         <Result
-          status="500"
-          title="OOOPS!!"
-          subTitle="Sorry, something went wrong."
+          status="404"
+          title="404!"
+          subTitle="Sorry, this resource does not exist."
           extra={
             <Button
               onClick={() => {
@@ -28,4 +28,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default Error404;

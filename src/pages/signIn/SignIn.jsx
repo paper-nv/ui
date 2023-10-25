@@ -50,6 +50,7 @@ const SignIn = () => {
     (payload) => authServices.signin(payload),
     {
       onError: (error) => {
+        console.log(error);
         toast.error(error.response.data.message);
       },
       onSuccess: (response) => {
@@ -69,12 +70,12 @@ const SignIn = () => {
     <>
       <div className="lg:grid  grid-cols-3 bg-slate-100 justify-center  ">
         <div className="col-span-1"></div>
-        <div className="col-span-1 py-32 px-5 xl:px-10 3xl:px-24">
+        <div className="col-span-1 py-32  xl:px-10 3xl:px-24">
           <form
             onSubmit={handleSubmit((payload) => mutate(payload))}
             className="animate__animated animate__slideInUp"
           >
-            <Card className="bg-white rounded-2xl text-slate-700 ">
+            <Card className="bg-white auth__card rounded-2xl text-slate-700 ">
               <div className="">
                 <Link to="../" className="flex ">
                   <PaperLogo className="text-blue-600" height="60" />

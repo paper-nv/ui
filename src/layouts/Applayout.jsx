@@ -12,7 +12,7 @@ import {
   CloseOutlined,
   PoweroffOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu, theme, Tooltip } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 const { Header, Content, Sider } = Layout;
 import { useState } from "react";
@@ -141,12 +141,14 @@ const AppLayout = ({ children }) => {
                 className=" "
               />
               <div className="lg:flex justify-center hidden mt-14">
-                <PoweroffOutlined
-                  onClick={() => {
-                    handleExit();
-                  }}
-                  className="text-sm text-white opacity-50 hover:opacity-100"
-                />
+                <Tooltip placement="right" title="Log out" arrow={true}>
+                  <PoweroffOutlined
+                    onClick={() => {
+                      handleExit();
+                    }}
+                    className="text-sm text-white opacity-50 hover:opacity-100"
+                  />
+                </Tooltip>
               </div>
             </Sider>
           }

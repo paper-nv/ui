@@ -72,7 +72,6 @@ const UpdateInvoice = ({ close, data, setState }) => {
   const update = (data) => {
     setConfirmLoading(true);
     appServices.updateInvoice(data).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         setConfirmLoading(false);
         toast.success("Invoice status updated");
@@ -89,7 +88,6 @@ const UpdateInvoice = ({ close, data, setState }) => {
   const deleteInvoice = (data) => {
     setConfirmLoading(true);
     appServices.deleteInvoice(data).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         setConfirmLoading(false);
         toast.success("Invoice deleted");

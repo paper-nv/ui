@@ -18,8 +18,8 @@ const Dashboard = () => {
   const { DF } = converter;
   const [isLoading, setIsLoading] = useState(true);
   const [stat, setStat] = useState([]);
-  const USER = useContext(UserContext).userDetails?.data;
   useHandleSession(location.pathname);
+  const USER = useContext(UserContext).userDetails?.data;
 
   const [data, setData] = useState([]);
 

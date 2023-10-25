@@ -199,7 +199,6 @@ const Newinvoice = () => {
       total += parseFloat(item[3]);
     });
     payload.total = total;
-    console.log("total", total);
     let data = {
       ...payload,
       items: entries,

@@ -18,13 +18,12 @@ const useHandleSession = (ref) => {
           },
         }
       );
-
       setSession(user);
     }
 
     getUser();
-
-    session != null && session?.status != 200
+    console.log(session);
+    session?.status != 200
       ? navigate("../sign-in", { state: { ref: ref } })
       : null;
   }, [state]);

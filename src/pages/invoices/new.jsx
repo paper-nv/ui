@@ -428,7 +428,7 @@ const Newinvoice = () => {
               );
             })}
             {entries.length ? (
-              <div className="flex mt-4 justify-end gap-3 mb-10">
+              <div className="flex mt-4 justify-end gap-3 mb-20">
                 <Button
                   onClick={() => setOpenModal(true)}
                   type="primary"

@@ -72,18 +72,20 @@ const Dashboard = () => {
       <div className="mb-4 flex justify-between">
         <div>
           {" "}
-          <h3 className="text-2xl font-bold"> Dashboard</h3>
+          <h3 className="text-2xl font-bold"> Overview</h3>
           <span className="muted">Hello {USER?.fullname} </span>
         </div>
 
         <div>
-          <Button
-            icon={<PlusOutlined />}
-            type="primary"
-            className="rounded-3xl"
-          >
-            New invoice
-          </Button>
+          <Link to="../accounts/invoices">
+            <Button
+              icon={<PlusOutlined />}
+              type="primary"
+              className="rounded-3xl"
+            >
+              New invoice
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="">

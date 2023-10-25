@@ -3,14 +3,12 @@ import UserProvider from "../context/userContext";
 import "./layout.css";
 import {
   TeamOutlined,
-  DeploymentUnitOutlined,
   FileOutlined,
   PieChartOutlined,
   PlusOutlined,
-  AntDesignOutlined,
   MenuOutlined,
   CloseOutlined,
-  PoweroffOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme, Tooltip } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -45,15 +43,15 @@ const AppLayout = ({ children }) => {
       key: "invoices",
       icon: <FileOutlined />,
     },
-    {
-      label: (
-        <Link onClick={() => setSideBar(false)} to="../accounts/invoices/new">
-          New Invoice
-        </Link>
-      ),
-      key: "profiles",
-      icon: <PlusOutlined />,
-    },
+    // {
+    //   label: (
+    //     <Link onClick={() => setSideBar(false)} to="../accounts/invoices/new">
+    //       New Invoice
+    //     </Link>
+    //   ),
+    //   key: "profiles",
+    //   icon: <PlusOutlined />,
+    // },
     {
       label: (
         <Link onClick={() => setSideBar(false)} to="../accounts/profiles">
@@ -106,7 +104,7 @@ const AppLayout = ({ children }) => {
                 onClick={() => {
                   setSideBar(!sideBar);
                 }}
-                className="text-slate-800 border-0"
+                className="text-primary-500 border-0"
               >
                 {sideBar ? (
                   <CloseOutlined className="text-xl" />
@@ -122,33 +120,42 @@ const AppLayout = ({ children }) => {
           {
             <Sider
               // collapsible
+              theme="light"
               collapsed={sideBar ? false : true}
               onCollapse={(value) => setCollapsed(value)}
               className={
                 sideBar
-                  ? "bg-transparent sidebar show animate__animated animate__slideInLeft"
-                  : "bg-transparent sidebar animate__animated animate__slideInLeft"
+                  ? " sidebar show animate__animated animate__slideInLeft"
+                  : " sidebar animate__animated animate__slideInLeft"
               }
             >
-              <div className="lg:flex justify-center hidden mb-14">
-                <PaperLogo className="text-blue-500" height={30} />
-              </div>
-              <Menu
-                theme="dark"
-                defaultSelectedKeys={["1"]}
-                mode="inline"
-                items={items}
-                className=" "
-              />
-              <div className="lg:flex justify-center hidden mt-14">
-                <Tooltip placement="right" title="Log out" arrow={true}>
-                  <PoweroffOutlined
-                    onClick={() => {
-                      handleExit();
-                    }}
-                    className="text-sm text-white opacity-50 hover:opacity-100"
-                  />
-                </Tooltip>
+              <div className="flex flex-col h-full justify-between">
+                <div className="lg:flex justify-center hidden mb-14">
+                  <PaperLogo className="text-blue-500" height={30} />
+                </div>
+                <Menu
+                  theme="light"
+                  defaultSelectedKeys={"dashb"}
+                  mode="inline"
+                  items={items}
+                  className=" text-slate-600 "
+                />
+                <div className="flex lg:justify-center gap-3 px-8 lg:px-0  mt-14">
+                  <Tooltip
+                    theme="light"
+                    placement="right"
+                    title="Log out"
+                    arrow={true}
+                  >
+                    <LogoutOutlined
+                      onClick={() => {
+                        handleExit();
+                      }}
+                      className=" text-base text-slate-600 hover:text-blue-600"
+                    />
+                  </Tooltip>
+                  <span className="lg:hidden ">Logout</span>
+                </div>
               </div>
             </Sider>
           }

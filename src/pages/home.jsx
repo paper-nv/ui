@@ -1,6 +1,6 @@
 import { HeartFilled } from "@ant-design/icons";
 import { Button } from "antd";
-import PaperIcon from "../assets/logo/paperIcon.Jsx";
+import PaperIcon from "../assets/logo/paperIcon.jsx";
 import {
   FundTwoTone,
   ToolTwoTone,

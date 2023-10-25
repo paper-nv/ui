@@ -6,7 +6,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import authServices from "../../services/auth/authServices";
-import PaperIcon from "../../assets/logo/paperIcon.Jsx";
+import PaperIcon from "../../assets/logo/paperIcon.jsx";
 import {
   EyeInvisibleOutlined,
   EyeOutlined,

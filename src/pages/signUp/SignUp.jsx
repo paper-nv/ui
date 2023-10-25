@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { Card, Modal, Result, Button } from "antd";
 import Success from "../../assets/icons/success";
-import PaperIcon from "../../assets/logo/paperIcon.Jsx";
+import PaperIcon from "../../assets/logo/paperIcon.jsx";
 import Google from "../../assets/icons/Google";
 import { useGoogleLogin } from "@react-oauth/google";
 

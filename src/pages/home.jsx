@@ -1,5 +1,10 @@
-import { HeartFilled } from "@ant-design/icons";
-import { Button } from "antd";
+import {
+  ApiTwoTone,
+  AppstoreTwoTone,
+  ForkOutlined,
+  HeartFilled,
+} from "@ant-design/icons";
+import { Badge, Button } from "antd";
 import PaperIcon from "../assets/logo/paperIcon.jsx";
 import {
   FundTwoTone,
@@ -14,6 +19,8 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="bg-white">
+      <title>Payper - Invoicing Simplified</title>
+
       <nav
         className={
           document.getElementById("root").scrollHeight > 10
@@ -99,7 +106,7 @@ const Home = () => {
             <div className="col-span-1">
               <div className="text-center mb-10 animate__animated animate__slideInUp">
                 <div>
-                  <ToolTwoTone className="text-5xl mb-2 text-slate-600" />
+                  <AppstoreTwoTone className="text-5xl mb-2 text-slate-600" />
                 </div>
                 <div>
                   <h3 className="font-bold mb-2">Flexible & Customizable</h3>
@@ -113,13 +120,20 @@ const Home = () => {
             <div className="col-span-1">
               <div className="text-center mb-10 animate__animated animate__slideInUp">
                 <div>
-                  <ToolTwoTone className="text-5xl mb-2 text-slate-600" />
+                  <ApiTwoTone className="text-5xl mb-2 text-slate-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold mb-2">Flexible & Customizable</h3>
+                  <h3 className="font-bold mb-2">
+                    Easy Integrations{" "}
+                    <small
+                      style={{ fontSize: ".7rem" }}
+                      className=" rounded-3xl p-1 font-normal text-white bg-green-500"
+                    >
+                      Coming Soon!
+                    </small>
+                  </h3>
                   <p className="text-sm text-slate-400">
-                    Send invoices directly to clients email addresses, create
-                    and download invoices in all currencies
+                    Connect paper to existing apps to manage automated invoices.
                   </p>
                 </div>
               </div>

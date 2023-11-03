@@ -20,6 +20,8 @@ const Profiles = () => {
   useHandleSession(location.pathname);
   return (
     <div>
+      <title>Profiles | Payper</title>
+
       <div className="">
         <h3 className="text-2xl font-bold"> Profiles</h3>
       </div>

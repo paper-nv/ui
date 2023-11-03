@@ -14,6 +14,7 @@ import Google from "../../assets/icons/Google";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import authServices from "../../services/auth/authServices";
+
 import {
   EyeInvisibleOutlined,
   EyeOutlined,
@@ -24,6 +25,7 @@ import {
 const SignUp = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [authModal, setAuthModal] = useState(false);
+  const [gLoading, setgLoading] = useState(false);
 
   const schema = yup.object().shape({
     fullname: yup
@@ -61,7 +63,10 @@ const SignUp = () => {
     (payload) => authServices.signup(payload),
     {
       onError: (error) => {
-        toast.error(error.response.data.message);
+        toast.error(
+          error.response.data.message ||
+            "something went wrong. Please wait awhile and try again"
+        );
       },
       onSuccess: (response) => {
         if (response.status === 200) {
@@ -76,7 +81,10 @@ const SignUp = () => {
 
   const mutation = useMutation((payload) => authServices.google(payload), {
     onError: (error) => {
-      toast.error(error.response.data.message);
+      toast.error(
+        error.response.data.message ||
+          "something went wrong. Please wait awhile and try again"
+      );
     },
     onSuccess: ({ status, data }) => {
       console.log(data);
@@ -95,6 +103,8 @@ const SignUp = () => {
 
   return (
     <div>
+      <title>Sign up | Payper</title>
+
       <Modal
         open={authModal}
         footer={null}
@@ -119,7 +129,7 @@ const SignUp = () => {
       </Modal>
       <div className="lg:grid grid-cols-3 justify-center  animate__animated animate__slideInUp">
         <div className="col-span-1"></div>
-        <div className="col-span-1  py-32  xl:px-10 3xl:px-24">
+        <div className="col-span-1  py-10  xl:px-10 3xl:px-24">
           <form
             onSubmit={handleSubmit((payload) => mutate(payload))}
             className="p-4"
@@ -130,19 +140,22 @@ const SignUp = () => {
                   <PaperIcon className="text-blue-600" height="40" />
                 </Link>
                 <h3 className="text-2xl font-semibold text-slate-700 mt-5">
-                  Log In
+                  Sign up
                 </h3>
                 <p className="text-slate-500 text-sm mb-10">
-                  Enter your credentials to access your account
+                  Create a new payper account.
                 </p>
               </div>
 
               <Button
                 className="w-full h-10 flex items-center justify-center"
                 icon={<Google height={14} />}
-                onClick={() => handleAuthWithGoogle()}
+                onClick={() => {
+                  setgLoading(true);
+                  handleAuthWithGoogle();
+                }}
               >
-                Continue with Google
+                {gLoading ? <LoadingOutlined /> : "Continue with Google"}
               </Button>
 
               <p className="py-6 text-slate-400 text-center font-thin">OR</p>

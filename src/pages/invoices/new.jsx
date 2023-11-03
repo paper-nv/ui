@@ -211,6 +211,8 @@ const Newinvoice = () => {
 
   return (
     <>
+      <title>New Invoice | Payper</title>
+
       {newModal && <ProfileModal close={setNewModal} add={addtoList} />}
       {customModal && (
         <ProfileModalCustom close={setCustomModal} add={addtoCustomList} />

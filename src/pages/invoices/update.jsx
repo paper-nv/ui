@@ -1,9 +1,10 @@
-import { Drawer, Button, Space, Popover, Modal, QRCode } from "antd";
+import { Drawer, Button, Space, Popover, Modal, QRCode, Card } from "antd";
 import {
   CheckCircleOutlined,
   CheckOutlined,
   DeleteOutlined,
   DownloadOutlined,
+  LoadingOutlined,
   MoreOutlined,
   QuestionCircleOutlined,
   QuestionCircleTwoTone,
@@ -17,6 +18,7 @@ import converter from "../../utils/converter";
 import appServices from "../../services/app/appServices";
 import { useState } from "react";
 import { Watermark } from "antd";
+import axios from "axios";
 
 const UpdateInvoice = ({ close, data, setState }) => {
   const [updateModal, setUpdateModal] = useState(false);
@@ -25,14 +27,67 @@ const UpdateInvoice = ({ close, data, setState }) => {
   const { DF, MF } = converter;
   const invoice = JSON.parse(data) || {};
   const handleDownload = () => {
-    document.getElementById("invoice-wrapper").className += " w-[800px]";
+    window.innerWidth < 600
+      ? (document.getElementById("invoice-wrapper").className += " w-[650px]")
+      : null;
     domtoimage
       .toBlob(document.getElementById("invoice-wrapper"))
       .then(function (blob) {
         FileSaver.saveAs(blob, invoice.title + ".png");
-        document
-          .getElementById("invoice-wrapper")
-          .classList.remove("w-[800px]");
+        window.innerWidth < 600
+          ? document
+              .getElementById("invoice-wrapper")
+              .classList.remove("w-[650px]")
+          : null;
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
+  };
+
+  const handleSend = () => {
+    setConfirmLoading(true);
+    window.innerWidth < 600
+      ? (document.getElementById("invoice-wrapper").className += " w-[650px]")
+      : null;
+
+    domtoimage
+      .toBlob(document.getElementById("invoice-wrapper"))
+      .then(function (blob) {
+        var reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+          var base64data = reader.result;
+
+          axios
+            .post("https://api.cloudinary.com/v1_1/hnrchris/image/upload", {
+              upload_preset: "iojqahlz",
+              api_key: "177267422853236",
+              timestamp: new Date(),
+              file: base64data,
+            })
+            .then((res) => {
+              appServices
+                .sendInvoice({
+                  data: res.data.secure_url,
+                  email: invoice.billTo.email,
+                })
+                .then((res) => {
+                  setConfirmLoading(false);
+
+                  res.data.status === "success"
+                    ? toast.success("Invoice sent to " + invoice.billTo.email)
+                    : toast.error(" failed to mail invoice");
+                });
+            });
+          console.log();
+        };
+
+        window.innerWidth < 600
+          ? document
+              .getElementById("invoice-wrapper")
+              .classList.remove("w-[650px]")
+          : null;
       })
       .catch((e) => {
         toast.error(e.message);
@@ -52,18 +107,9 @@ const UpdateInvoice = ({ close, data, setState }) => {
       <p
         key={2}
         className="flex gap-2 pt-2 cursor-pointer hover:text-blue-600"
-        onClick={() =>
-          toast("This feature is coming soon!", {
-            icon: "👏",
-            style: {
-              borderRadius: "10px",
-              background: "#000",
-              color: "#fff",
-            },
-          })
-        }
+        onClick={() => handleSend()}
       >
-        {<SendOutlined />}
+        {confirmLoading ? <LoadingOutlined /> : <SendOutlined />}
         Send to mail
       </p>
     </div>
@@ -193,123 +239,94 @@ const UpdateInvoice = ({ close, data, setState }) => {
         </div>
       </Modal>
 
-      <div className="lg:px-5">
-        <div className="pb-10">
-          <div className="invoice" id="invoice-wrapper">
-            <Watermark content={[""]}>
-              <div
-                className="invoice__paper rounded bg-gray-50 text-gray-500 border border-gray-200"
-                style={{ borderRadius: "15px" }}
-              >
-                <div className="invoice__paper__header ">
-                  <div className="invoice__paper__header__logo p-6 bg-gray-100 text-center">
-                    <h3> {invoice?.billFrom.name} </h3>
-                  </div>
+      <div className="lg:px-5 ">
+        <div className="">
+          <div className="invoice  bg-white" id="invoice-wrapper">
+            <Watermark className="py-10" content={[""]}>
+              <div className="flex px-5 justify-between items-center mb-4">
+                <div>
+                  <p className="text-xl ">{invoice.billFrom.name}</p>
+                  <p className="opacity-70">{invoice.billFrom.address}</p>
+                  <p className="opacity-70">{invoice.billFrom.email}</p>
                 </div>
-
-                <div className="p-[25px]">
-                  <div className="invoice__paper__header__infopy-[50px] my-[40px] px-2">
-                    <div className="flex justify-between">
-                      <div>
-                        <h4 className="lidr">Billed To:</h4>
-                        <div className="lidress">
-                          <p>{invoice?.billTo.name}</p>
-                          {/* <p>{invoice?.billTo.email}</p> */}
-                          <p>{invoice?.billTo.address}</p>
-                          {/* <p>{invoice?.billTo.phone}</p> */}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="lidr uppercase">
-                          Invoice: #{invoice.invoiceID}
-                        </h4>
-                        <div className=" lidress">
-                          <p>issued on: {DF(invoice?.issued)}</p>
-                          <p>Due: {DF(invoice?.due)}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="invoice__paper__body mt-20">
-                    <div className="grid grid-cols-10 p-3 invoice__list lead bg-gray-100 text-gray-600">
-                      <div className="col-span-5">
-                        <p>Description</p>
-                      </div>
-                      <div className="col-span-2 flex justify-center">
-                        <p>Price</p>
-                      </div>
-                      <div className="col-span-1 flex justify-center">
-                        <p>Units</p>
-                      </div>
-                      <div className="col-span-2 flex justify-center">
-                        <p>Total</p>
-                      </div>
-                    </div>
-                    {invoice.items.map((item) => {
-                      return (
-                        <div
-                          key={invoice.items.indexOf(item) + "ruo"}
-                          className="grid grid-cols-10 invoice__list p-3 bg-gray-100 text-gray-600 text-sm"
-                        >
-                          <div className="col-span-5">
-                            <p>{item[0].children}</p>
-                          </div>
-                          <div className="col-span-2 flex justify-center">
-                            <p>{item[1].children.split("x")[0]}</p>
-                          </div>
-                          <div className="col-span-1 flex justify-center">
-                            <p>{item[1].children.split("x")[1]}</p>
-                          </div>
-                          <div className="col-span-2 flex justify-center">
-                            <p>{item[2].children}</p>
-                          </div>
-                        </div>
-                      );
-                    })}
-                    <div className="grid grid-cols-10 invoice__list lead p-3 bg-gray-600 text-white rounded">
-                      <div className="col-span-5">
-                        <p>Total Due:</p>
-                      </div>
-                      <div className="col-span-5 flex justify-end">
-                        <p>{MF(invoice.total, invoice.currency)}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center mt-4">
-                    <div className="py-10  lg:w-[70%]">
-                      <p
-                        style={{
-                          fontSize: ".8rem",
-                          opacity: ".8",
-                          whiteSpace: "pre-line",
-                        }}
-                      >
-                        {invoice.notes}
-                      </p>
-                    </div>
-                    <div className="pl-10">
-                      <QRCode
-                        color="#4B5563"
-                        size={140}
-                        value={`https://paperincoice.co/${invoice.invoiceID}`}
-                      />
-                    </div>
-                  </div>
+                <div>
+                  <QRCode
+                    size={120}
+                    value={`https://invoicepaper.vercel.app/verify/${invoice._id}`}
+                  />
                 </div>
+              </div>
 
-                <div className="invoice__paper__footer bg-gray-100 px-[35px] py-[20px] ">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3> {invoice.billFrom.name} </h3>
-                    </div>
-                    <div className="lidress">
-                      <p>{invoice?.billFrom.address}</p>
-                      <p>{invoice?.billFrom.email}</p>
-                    </div>
+              <div className="mb-4 p-6 rounded-xl  bg-gray-50 ">
+                <div className="flex justify-between">
+                  <div>
+                    <p className="uppercase mb-2 text-gray-400">Due</p>
+                    <p className="font-semibold">{DF(invoice?.due)}</p>
+                  </div>
+                  <div>
+                    <p className="uppercase mb-2 text-gray-400">Issued</p>
+                    <p className="font-semibold">{DF(invoice?.issued)}</p>
                   </div>
                 </div>
               </div>
+              <div className="mb-4 p-6 rounded-xl  bg-gray-50 ">
+                <div>
+                  <p className="uppercase mb-2 text-gray-400 ">Billed to</p>
+                  <p className="font-semibold ">{invoice?.billTo.name}</p>
+                  <p className="font-semibold ">{invoice?.billTo.address}</p>
+                  <p className="font-semibold  text-gray-400">
+                    {invoice?.billTo.email}
+                  </p>
+                </div>
+              </div>
+              <div className="mb-4  rounded-xl  bg-gray-50 ">
+                <div className="px-6 py-4 grid grid-cols-10 gap-2  ">
+                  <p className="col-span-5 uppercase text-gray-400">
+                    Description
+                  </p>
+                  <p className="col-span-2 uppercase text-gray-400">Rate</p>
+                  <p className="col-span-1 uppercase text-gray-400">QTY</p>
+                  <p className="col-span-2 uppercase text-gray-400">SUBtotal</p>
+                </div>
+                {invoice.items.map((item) => {
+                  return (
+                    <div
+                      key={invoice.items.indexOf(item) + "ruo"}
+                      className="p-6 py-4 lg:py-6 grid grid-cols-10 gap-2"
+                    >
+                      <p className="col-span-5 font-semibold lg:text-sm text-xs">
+                        {item[0].children}
+                      </p>
+                      <p className="col-span-2 font-semibold lg:text-sm text-xs">
+                        {item[1].children.split("x")[0]}
+                      </p>
+                      <p className="col-span-1 font-semibold lg:text-sm text-xs">
+                        {item[1].children.split("x")[1]}
+                      </p>
+                      <p className="col-span-2 font-semibold lg:text-sm text-xs">
+                        {item[2].children}
+                      </p>
+                    </div>
+                  );
+                })}
+                <div
+                  className="px-6 py-4 grid grid-cols-10 gap-2 rounded-2xl font-semibold bg-gray-100 "
+                  style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+                >
+                  <p className="col-span-8 uppercase text-gray-400">Total</p>
+                  <p className="col-span-2 uppercase ">
+                    {MF(invoice?.total, invoice.currency)}
+                  </p>
+                </div>
+              </div>
+              {invoice?.notes ? (
+                <div className="mb-4 p-6 rounded-xl  bg-gray-50 ">
+                  <div>
+                    <p className="uppercase mb-2 text-gray-400 ">Notes</p>
+                    <p className=" ">{invoice?.notes}</p>
+                  </div>
+                </div>
+              ) : null}
             </Watermark>
           </div>
         </div>

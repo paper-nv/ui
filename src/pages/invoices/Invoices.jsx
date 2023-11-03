@@ -92,6 +92,8 @@ const Invoices = () => {
 
   return (
     <div>
+      <title>My Invoices | Payper</title>
+
       <div className="flex justify-between mb-10">
         <div className="">
           <h3 className="text-2xl font-bold"> Invoices</h3>

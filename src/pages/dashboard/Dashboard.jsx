@@ -7,8 +7,10 @@ import {
   ArrowUpOutlined,
   FileTextOutlined,
   PlusOutlined,
+  FilterOutlined,
+  CalendarOutlined,
 } from "@ant-design/icons";
-import { Card, Skeleton, Empty, Button } from "antd";
+import { Card, Skeleton, Empty, Button, Popover, Radio } from "antd";
 import { Link } from "react-router-dom";
 import appServices from "../../services/app/appServices";
 import { Area } from "@ant-design/plots";
@@ -18,6 +20,7 @@ const Dashboard = () => {
   const { DF } = converter;
   const [isLoading, setIsLoading] = useState(true);
   const [stat, setStat] = useState([]);
+  const [activeMonth, setActiveMonth] = useState(new Date().getMonth());
   useHandleSession(location.pathname);
   const USER = useContext(UserContext).userDetails?.data;
 
@@ -25,40 +28,95 @@ const Dashboard = () => {
 
   useEffect(() => {
     asyncFetch();
-  }, []);
+  }, [activeMonth]);
 
   const asyncFetch = () => {
-    appServices.invoiceStats().then((res) => {
+    appServices.invoiceStats(activeMonth + 1).then((res) => {
       setStat(res.data);
+      console.log(res.data);
       let invoices = [];
-      res.data.invoices.forEach((item) => {
-        // Group invoices by date
-        let date = DF(item.created_at);
-        let total = item.total;
-        let status = item.status;
-        let count = 1;
-        let invoice = invoices.find((item) => DF(item.created_at) === date);
-        if (invoice) {
-          invoice.count += count;
-          invoice.total += total;
-          invoice.status = status;
+      let groups = [];
+      const dates = [];
+      res.data.dates.forEach((item) => {
+        res.data.chart.forEach((data) => {
+          data.created_at = DF(data.created_at);
+          if (data.created_at == DF(item)) {
+            invoices.push(data);
+          }
+        });
+      });
+
+      invoices.forEach((invoice) => {
+        if (dates.includes(invoice.created_at)) {
+          if (
+            groups[dates.indexOf(invoice.created_at)].status === invoice.status
+          ) {
+            groups[dates.indexOf(invoice.created_at)].count += 1;
+          } else {
+            groups.push({
+              date: invoice.created_at,
+              count: 1,
+              status: invoice.status,
+            });
+          }
         } else {
-          invoices.push({
-            created_at: date,
-            total,
-            status,
-            count,
+          dates.push(invoice.created_at);
+          groups.push({
+            date: invoice.created_at,
+            count: 1,
+            status: invoice.status,
           });
         }
       });
-      setData(invoices);
+      console.log(groups);
+      setData(groups);
     });
 
     setIsLoading(false);
   };
+
+  const selectMonth = (e) => {
+    setActiveMonth(e.target.value);
+  };
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const monthGroups = [];
+
+  for (let i = 0; i < 12; i++) {
+    monthGroups.push(
+      <Radio
+        checked={i == new Date().getMonth() ? true : false}
+        className="my-2"
+        value={i}
+      >
+        {monthNames[i]}
+      </Radio>
+    );
+  }
+
+  const months = (
+    <Radio.Group className="block" onChange={selectMonth}>
+      {monthGroups}
+    </Radio.Group>
+  );
+
   const config = {
     data: data,
-    xField: "created_at",
+    xField: "date",
     yField: "count",
     seriesField: "status",
   };
@@ -67,11 +125,18 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="mb-4 flex justify-between">
+      <title>Dashboard | Payper</title>
+
+      <div className="mb-6 flex justify-between">
         <div>
           {" "}
           <h3 className="text-2xl font-bold"> Overview</h3>
-          <span className="muted">Hello {USER?.fullname} </span>
+          <div className="muted capitalize flex items-center">
+            <p>Hello, {USER?.fullname.split(" ")[0]} </p>
+            <div className="text-xl animate__animated animate__wobble inline">
+              👋
+            </div>
+          </div>
         </div>
 
         <div>
@@ -79,80 +144,71 @@ const Dashboard = () => {
             <Button
               icon={<PlusOutlined />}
               type="primary"
-              className="rounded-3xl"
+              className="rounded-3xl h-12"
             >
               New invoice
             </Button>
           </Link>
         </div>
       </div>
-      <div className="">
-        <div className="grid card gap-4 gap-y-6  grid-cols-3 bg-white p-8 rounded-lg">
-          <div className="bg-white col-span-4  md:col-span-1">
-            <div className="flex justify-between items-center">
-              <div className="flex gap-2 ">
-                <div className="rounded-full p-4 flex justify-center items-start bg-blue-50">
-                  <FileTextOutlined className="text-blue-300 text-2xl" />
-                </div>
-                <div>
-                  <span
-                    to="../accounts/invoices"
-                    className="text-xs text-slate-500  "
-                  >
-                    Invoices
-                  </span>
-                  <h3 className="font-bold text-2xl leading-none  text-slate-600">
-                    {stat.totalInvoices}{" "}
-                  </h3>
-                </div>
+      <div className=" ">
+        <div className="grid   gap-4 gap-y-6  grid-cols-3 bg-white px-6 lg:px-8 py-10 rounded-xl">
+          <div className="bg-white col-span-1  md:col-span-1">
+            <div className="flex justify-start items-center gap-2 ">
+              <div className="rounded-full p-2 md:p-4 flex justify-center items-start bg-blue-50">
+                <FileTextOutlined className="text-blue-300 text-lg md:text-2xl" />
               </div>
-              <div></div>
+              <div>
+                <span
+                  to="../accounts/invoices"
+                  className="text-xs text-slate-500  "
+                >
+                  Invoices
+                </span>
+                <h3 className="font-bold text-xl md:text-2xl leading-none  text-slate-600">
+                  {stat.totalInvoices}{" "}
+                </h3>
+              </div>
             </div>
           </div>
-          <div className="bg-white col-span-4  md:col-span-1">
-            <div className="flex justify-between items-center">
-              <div className="flex gap-2 ">
-                <div className="rounded-full p-4 flex justify-center items-center bg-green-50">
-                  <ArrowUpOutlined className="text-green-400 text-2xl" />
-                </div>
-                <div>
-                  <span
-                    to="../accounts/invoices"
-                    className="text-xs text-slate-500  "
-                  >
-                    Paid
-                  </span>
-                  <h3 className="font-bold text-2xl leading-none  text-slate-600">
-                    {stat.totalPaidInvoices}
-                  </h3>
-                </div>
+          <div className="bg-white col-span-1  md:col-span-1">
+            <div className="flex justify-start items-center gap-2 ">
+              <div className="rounded-full p-2 md:p-4 flex justify-center items-center bg-green-50">
+                <ArrowUpOutlined className="text-green-400 text-lg md:text-2xl" />
               </div>
-              <div></div>
+              <div>
+                <span
+                  to="../accounts/invoices"
+                  className="text-xs text-slate-500  "
+                >
+                  Paid
+                </span>
+                <h3 className="font-bold text-xl md:text-2xl leading-none  text-slate-600">
+                  {stat.totalPaidInvoices}
+                </h3>
+              </div>
             </div>
           </div>
-          <div className="bg-white col-span-4  md:col-span-1">
-            <div className="flex justify-between items-center">
-              <div className="flex gap-2 ">
-                <div className="rounded-full p-4 flex justify-center items-center bg-red-50">
-                  <ArrowDownOutlined className="text-red-300 text-2xl" />
-                </div>
-                <div>
-                  <span
-                    to="../accounts/invoices"
-                    className="text-xs text-slate-500  "
-                  >
-                    Pending
-                  </span>
-                  <h3 className="font-bold text-2xl leading-none  text-slate-600">
-                    {stat.totalOutstandingInvoices}
-                  </h3>
-                </div>
+          <div className="bg-white col-span-1  md:col-span-1">
+            <div className="flex justify-start items-center gap-2 ">
+              <div className="rounded-full p-2 md:p-4 flex justify-center items-center bg-red-50">
+                <ArrowDownOutlined className="text-red-300 text-lg md:text-2xl" />
               </div>
-              <div></div>
+              <div>
+                <span
+                  to="../accounts/invoices"
+                  className="text-xs text-slate-500  "
+                >
+                  Pending
+                </span>
+                <h3 className="font-bold text-xl md:text-2xl leading-none  text-slate-600">
+                  {stat.totalOutstandingInvoices}
+                </h3>
+              </div>
             </div>
           </div>
         </div>
-        <div className="col-span-3 mt-10 ">
+        <div className="col-span-3  mt-10">
           {isLoading ? (
             <>
               <Skeleton active className="mt-20" />
@@ -161,9 +217,24 @@ const Dashboard = () => {
           ) : (
             <div>
               {stat.totalInvoices ? (
-                <Card className="bg-white rounded-3xl">
+                <div className="p-6 bg-white rounded-xl lg:p-8">
+                  <div className="flex justify-end w-full">
+                    <div className="flex  mb-2">
+                      <div>
+                        <Popover content={months}>
+                          <Button
+                            className="border-0"
+                            icon={<CalendarOutlined />}
+                          >
+                            {" "}
+                            {monthNames[activeMonth]}
+                          </Button>
+                        </Popover>
+                      </div>
+                    </div>
+                  </div>
                   <Area {...config} />
-                </Card>
+                </div>
               ) : (
                 <Empty
                   image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"

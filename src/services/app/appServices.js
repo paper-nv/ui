@@ -30,14 +30,18 @@ const appServices = {
   async updateInvoice(payload) {
     return instance.put(`invoice/update`, payload);
   },
+  async sendInvoice(payload) {
+    return instance.post(`invoice/send`, payload);
+  },
   async deleteInvoice(params) {
     return instance.delete(`invoice/delete/${params}`);
   },
   async invoiceList(params) {
     return instance.get(`invoice/get?${params}`);
   },
-  async invoiceStats() {
-    return instance.get(`invoice/stats`);
+  async invoiceStats(month) {
+    console.log(month);
+    return instance.get(`invoice/stats?month=${month}`);
   },
 };
 

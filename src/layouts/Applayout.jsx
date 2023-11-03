@@ -25,7 +25,11 @@ const AppLayout = ({ children }) => {
   const items = [
     {
       label: (
-        <Link onClick={() => setSideBar(false)} to="../accounts/dashboard">
+        <Link
+          onClick={() => setSideBar(false)}
+          className="uppercase text-xs"
+          to="../accounts/dashboard"
+        >
           {" "}
           Dashboard{" "}
         </Link>
@@ -35,7 +39,11 @@ const AppLayout = ({ children }) => {
     },
     {
       label: (
-        <Link onClick={() => setSideBar(false)} to="../accounts/invoices">
+        <Link
+          onClick={() => setSideBar(false)}
+          className="uppercase text-xs"
+          to="../accounts/invoices"
+        >
           {" "}
           Invoices{" "}
         </Link>
@@ -54,7 +62,11 @@ const AppLayout = ({ children }) => {
     // },
     {
       label: (
-        <Link onClick={() => setSideBar(false)} to="../accounts/profiles">
+        <Link
+          onClick={() => setSideBar(false)}
+          className="uppercase text-xs"
+          to="../accounts/profiles"
+        >
           Profiles
         </Link>
       ),
@@ -92,7 +104,9 @@ const AppLayout = ({ children }) => {
           <div className="app-container w-[100%] flex items-center justify-between">
             <div className="demo-logo">
               {" "}
-              <PaperIcon height={30} className="text-blue-600 text-2xl" />
+              <Link to="../accounts/dashboard">
+                <PaperIcon height={30} className="text-blue-600 text-2xl" />
+              </Link>
             </div>
 
             <Menu theme="light" mode="horizontal">
@@ -127,7 +141,9 @@ const AppLayout = ({ children }) => {
             >
               <div className="flex flex-col h-full justify-between">
                 <div className="lg:flex justify-center hidden mb-14">
-                  <PaperIcon className="text-blue-500" height={30} />
+                  <Link to="../accounts/dashboard">
+                    <PaperIcon className="text-blue-500" height={30} />
+                  </Link>
                 </div>
                 <Menu
                   theme="light"

@@ -52,7 +52,10 @@ const SignIn = () => {
     (payload) => authServices.signin(payload),
     {
       onError: (error) => {
-        toast.error(error.response.data.message);
+        toast.error(
+          error.response.data.message ||
+            "something went wrong. Please wait awhile and try again"
+        );
       },
       onSuccess: (response) => {
         if (response.status === 200) {
@@ -69,7 +72,10 @@ const SignIn = () => {
 
   const mutation = useMutation((payload) => authServices.google(payload), {
     onError: (error) => {
-      toast.error(error.response.data.message);
+      toast.error(
+        error.response.data.message ||
+          "something went wrong. Please wait awhile and try again"
+      );
     },
     onSuccess: ({ status, data }) => {
       console.log(data);
@@ -90,9 +96,11 @@ const SignIn = () => {
 
   return (
     <>
+      <title>Sign in | Payper</title>
+
       <div className="lg:grid  grid-cols-3  justify-center  ">
         <div className="col-span-1"></div>
-        <div className="col-span-1 py-32  xl:px-10 3xl:px-24">
+        <div className="col-span-1 py-10  xl:px-10 3xl:px-24">
           <form
             onSubmit={handleSubmit((payload) => mutate(payload))}
             className="animate__animated animate__slideInUp p-4"
@@ -111,11 +119,14 @@ const SignIn = () => {
               </div>
 
               <Button
-                onClick={() => handleAuthWithGoogle()}
+                onClick={() => {
+                  setgLoading(true);
+                  handleAuthWithGoogle();
+                }}
                 className="w-full h-10 flex items-center justify-center"
                 icon={<Google height={14} />}
               >
-                Continue with Google
+                {gLoading ? <LoadingOutlined /> : "Continue with Google"}
               </Button>
 
               <p className="py-6 text-slate-400 text-center font-thin">OR</p>
